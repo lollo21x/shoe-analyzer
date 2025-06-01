@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Shoe Analyzer AI</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; }
+    #chat { border: 1px solid #ccc; padding: 1em; height: 300px; overflow-y: auto; }
+    input, button { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Shoe Analyzer AI</h1>
+  <div id="chat"></div>
+  <input type="text" id="msg" placeholder="Descrivi la scarpa..." size="60">
+  <button onclick="sendMessage()">Invia</button>
+
+  <script>
+    async function sendMessage() {
+      const msg = document.getElementById("msg").value;
+      const chat = document.getElementById("chat");
+      chat.innerText += "Tu: " + msg + "\n";
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: msg})
+      });
+      const reply = await res.json();
+      chat.innerText += "AI: " + reply + "\n\n";
+      document.getElementById("msg").value = "";
+    }
+  </script>
+</body>
+</html>
