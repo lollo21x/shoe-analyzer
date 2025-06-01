@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: shoe-analyzer
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: OPENROUTER_API_KEY
+        value: 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   # API key
